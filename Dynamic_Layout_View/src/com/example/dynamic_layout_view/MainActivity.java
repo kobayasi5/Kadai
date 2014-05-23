@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 		setContentView(linearLayout);
 
 		Button button1 = new Button(this);
+		//ボタンが表示されないよ
 		button1.setText("OK");
 		button1.setLayoutParams(new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
