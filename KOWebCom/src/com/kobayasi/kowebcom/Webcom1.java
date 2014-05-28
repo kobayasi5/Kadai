@@ -12,6 +12,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Xml;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Webcom1 extends Activity {
@@ -26,30 +28,28 @@ public class Webcom1 extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webcom1);
 		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-		mView=(TextView)findViewById(R.id.view);
-		mView.setText(new String(httpGet(createURL())));
+		getArticle(createURL());
+		ListView list = (ListView)findViewById(R.id.ListView01);
+		list.setAdapter(new ArrayAdapter<String>(this,R.layout.rowitem,mArticleTitle));
+		                           //  ↑スペースがあってるとエラーが出ます。
 		}
+
 		public String createURL(){
 			String apiURL="http://news.yahooapis.jp/NewsWebService/V2/topics?";
 			String appid ="dj0zaiZpPVlCYmZTS0ZyZ043eSZzPWNvbnN1bWVyc2VjcmV0Jng9ZmI-";
 			String category="top";
 			return String.format("%sappid=%s&pickupcategory=%s",apiURL,appid,category);
 		}
-		public static String httpGet(String strURL){
+		public static void getArticle(String strURL){
 		try{
 			URL url =new URL(strURL);
 			URLConnection connection=url.openConnection();
 			connection.setDoInput(true);
 			InputStream stream=connection.getInputStream();
 			readXML(stream);
-			String data="";
-			for(int i=0;i<mArticleNum;i++){
-				data+=mArticleTitle[i];
-			}
 			stream.close();
-			return data;
 		} catch (Exception e){
-			return e.toString();
+			e.printStackTrace();
 		}
 	}
 	public static void readXML(InputStream stream)
