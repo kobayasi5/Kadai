@@ -18,10 +18,10 @@ public class Webcom1 extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_webcom1);
 		mView=(TextView)findViewById(R.id.view);
-		mView.setText(new String(httpGet("http://www.yahoo.co.jp")));
+		mView.setText(new String(httpGet(createURL())));
 		}
 		public String createURL(){
-			String apiURL="http://news.yahooapis.jp/NewsWebService/V2?topics?";
+			String apiURL="http://news.yahooapis.jp/NewsWebService/V2/topics?";
 			String appid ="dj0zaiZpPVlCYmZTS0ZyZ043eSZzPWNvbnN1bWVyc2VjcmV0Jng9ZmI-";
 			String category="top";
 			return String.format("%sappid=%s&pickupcategory=%s",apiURL,appid,category);
